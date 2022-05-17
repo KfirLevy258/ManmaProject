@@ -1,13 +1,7 @@
-import logging
 import numpy as np
-from typing import List, Union, Tuple
+from typing import Union, List, Tuple
 
-import Consts
-
-
-class MamanException(Exception):
-    def __init__(self, msg: str):
-        super(MamanException, self).__init__(msg)
+import consts
 
 
 class UserInputs:
@@ -28,7 +22,13 @@ class UserInputs:
             print(f"'{user_input}' is not valid input! Please retry.")
         return user_input
 
-    def fill_array_with_n_numbers(self, n: int) -> Union[np.array]:
+    def get_user_n_length(self) -> int:
+        return self._get_input_until_valid(
+            msg="Please enter your 'n_length' array length:\n",
+            valid_type=int,
+        )
+
+    def fill_array_with_n_numbers(self, n_length: int) -> Union[np.array]:
         user_input = self._get_input_until_valid(
             msg="Would you like to enter the values for the array or you want them to generate automatically?\n"
                 "1 - To fill the array with random numbers in range [0 - 999]\n"
@@ -38,31 +38,23 @@ class UserInputs:
         )
         match user_input:
             case 1:
-                return np.random.randint(Consts.ArrayConsts.MIN_DEFAULT_VALUE, Consts.ArrayConsts.MAX_DEFAULT_VALUE,
-                                         size=n)
+                return np.random.randint(consts.ArrayConsts.MIN_DEFAULT_VALUE, consts.ArrayConsts.MAX_DEFAULT_VALUE,
+                                         size=n_length)
             case 2:
-                array_to_return = np.empty(n, dtype=np.int8)
-                for iteration in range(n):
+                array_to_return = np.empty(n_length, dtype=np.int8)
+                for iteration in range(n_length):
                     user_input = self._get_input_until_valid(
                         msg=f"Enter the {iteration + 1} number:\n",
                         valid_type=int,
                     )
                     array_to_return[iteration] = user_input
                 return array_to_return
-        MamanException("Ypu broke the system, you shouldn't got this far")
+        consts.MamanException("Ypu broke the system, you shouldn't got this far")
 
-    def get_user_k_value(self) -> int:
+    def get_user_k_value(self, n_length: int) -> int:
         return self._get_input_until_valid(
             msg="Please enter your 'k' number:\n",
             valid_type=int,
+            valid_values=[i for i in range(n_length + 1)]
         )
 
-
-def section_a(n: int, k: int) -> np.array:
-    input()
-
-
-if __name__ == '__main__':
-    u = UserInputs()
-    print(u.fill_array_with_n_numbers(2))
-    # print(fill_array_with_n_numbers(10))
