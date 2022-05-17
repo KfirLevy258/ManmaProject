@@ -1,5 +1,7 @@
 import numpy as np
 
+from support_functions import exchange
+
 
 class Heap:
     @staticmethod
@@ -21,9 +23,7 @@ class Heap:
         if right < len(a) and a[right] < a[smallest]:
             smallest = right
         if smallest is not i:
-            temp = a[i]
-            a[i] = a[smallest]
-            a[smallest] = temp
+            a = exchange(a, smallest, i)
             self.min_heapify(a, smallest)
         return a
 
