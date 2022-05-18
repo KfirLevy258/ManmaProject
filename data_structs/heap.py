@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import numpy as np
 
 class Heap:
@@ -20,25 +22,27 @@ class Heap:
             smallest = left
             comp_counter += 1
         else:
+            comp_counter += 1
             smallest = i
         if right < len(a) and a[right] < a[smallest]:
             smallest = right
             comp_counter += 1
         if smallest is not i:
             a[smallest], a[i] = a[i], a[smallest]
-            self.min_heapify(a, smallest, comp_counter)
+            comp_counter += self.min_heapify(a, smallest, comp_counter)
         return comp_counter
 
     def build_min_heap(self, a: np.array) -> int:
         heap_size = len(a)
         comp_counter = 0
         for i in range(int(heap_size / 2), -1, -1):
-            a, comp_for_iteration = self.min_heapify(a, i, 0)
+            comp_for_iteration = self.min_heapify(a, i, 0)
             comp_counter += comp_for_iteration
         return comp_counter
 
-    def heap_extract_min(self, a: np.array) -> int:
+    def heap_extract_min(self, a: np.array) -> Tuple[np.array, int]:
         a[0], a[len(a) - 1] = a[len(a) - 1], a[0]
         a = a[:-1]
-        return self.min_heapify(a, 0, 0)
+        comp_counter = self.min_heapify(a, 0, 0)
+        return a, comp_counter
 
