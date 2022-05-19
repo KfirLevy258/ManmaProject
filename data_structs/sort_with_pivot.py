@@ -37,10 +37,10 @@ class PivotSort:
         else:
             return self.randomized_select(a, q + 1, r, i - k, comp_counter)
 
-    def quicksort(self, a: np.array, p: int, r: int, comp_counter: int) -> Tuple[np.array, int]:
+    def quicksort(self, a: np.array, p: int, r: int, comp_counter: int) -> int:
         if p < r:
             q, partition_counter = self.partition(p, r, a)
-            _, right_counter = self.quicksort(a, p, q - 1, comp_counter)
-            _, left_counter = self.quicksort(a, q + 1, r, comp_counter)
+            right_counter = self.quicksort(a, p, q - 1, comp_counter)
+            left_counter = self.quicksort(a, q + 1, r, comp_counter)
             comp_counter += partition_counter + right_counter + left_counter
-        return a, comp_counter
+        return comp_counter
