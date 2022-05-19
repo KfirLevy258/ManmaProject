@@ -4,7 +4,7 @@ from typing import Tuple
 import numpy as np
 
 
-class Randomize:
+class PivotSort:
 
     @staticmethod
     def partition(p: int, r: int, a: np.array) -> Tuple[int, int]:
@@ -28,14 +28,14 @@ class Randomize:
         if p == r:
             return a[p], comp_counter
         q, temp_comp = self.randomized_partition(a, p, r)
-        comp_counter = comp_counter + temp_comp
+        comp_counter += temp_comp
         k = q - p + 1
         if i == k:
-            return a[q]
+            return a[q], comp_counter
         elif i < k:
             return self.randomized_select(a, p, q - 1, i, comp_counter)
         else:
-            return self.randomized_select(a, p + 1, r, i - k, comp_counter)
+            return self.randomized_select(a, q + 1, r, i - k, comp_counter)
 
     def quicksort(self, a: np.array, p: int, r: int, comp_counter: int) -> Tuple[np.array, int]:
         if p < r:
