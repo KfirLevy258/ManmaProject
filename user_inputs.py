@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Union, List, Tuple
 
-import consts
+import help_funcs_and_consts
 
 
 class UserInputs:
@@ -38,10 +38,9 @@ class UserInputs:
         )
         match user_input:
             case 1:
-                return np.random.randint(consts.ArrayConsts.MIN_DEFAULT_VALUE, consts.ArrayConsts.MAX_DEFAULT_VALUE,
-                                         size=n_length)
+                return help_funcs_and_consts.get_random_array(n_length)
             case 2:
-                array_to_return = np.empty(n_length, dtype=np.int8)
+                array_to_return = np.empty(n_length, dtype=int)
                 for iteration in range(n_length):
                     user_input = self._get_input_until_valid(
                         msg=f"Enter the {iteration + 1} number:\n",
@@ -49,7 +48,7 @@ class UserInputs:
                     )
                     array_to_return[iteration] = user_input
                 return array_to_return
-        consts.MamanException("Ypu broke the system, you shouldn't got this far")
+        help_funcs_and_consts.MamanException("Ypu broke the system, you shouldn't got this far")
 
     def get_user_k_value(self, n_length: int) -> int:
         return self._get_input_until_valid(
