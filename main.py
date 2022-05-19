@@ -2,7 +2,7 @@ from data_structs.heap import Heap
 from user_inputs import UserInputs
 from data_structs.sort_with_pivot import PivotSort
 
-if __name__ == '__main__':
+def main():
     user_input_interface = UserInputs()
     n = user_input_interface.get_user_n_length()
     k = user_input_interface.get_user_k_value(n)
@@ -31,3 +31,6 @@ if __name__ == '__main__':
     print(f"The numbers of comparisons for this sort were: {algo_b_comp_counter}")
     print("#" * 30)
 
+
+if __name__ == '__main__':
+    main()
