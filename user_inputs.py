@@ -57,4 +57,3 @@ class UserInputs:
             valid_type=int,
             valid_values=[i for i in range(n_length + 1)]
         )
-

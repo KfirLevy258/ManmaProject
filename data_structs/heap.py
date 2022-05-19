@@ -46,4 +46,3 @@ class Heap:
         a = a[:-1]
         comp_counter = self.min_heapify(a, 0, 0)
         return a, smallest, comp_counter
-
