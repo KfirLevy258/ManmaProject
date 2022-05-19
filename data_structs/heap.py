@@ -40,9 +40,10 @@ class Heap:
             comp_counter += comp_for_iteration
         return comp_counter
 
-    def heap_extract_min(self, a: np.array) -> Tuple[np.array, int]:
+    def heap_extract_min(self, a: np.array) -> Tuple[np.array, int, int]:
+        smallest = a[0]
         a[0], a[len(a) - 1] = a[len(a) - 1], a[0]
         a = a[:-1]
         comp_counter = self.min_heapify(a, 0, 0)
-        return a, comp_counter
+        return a, smallest, comp_counter
 
