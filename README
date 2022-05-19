@@ -6,9 +6,9 @@ This is my project for the 14 assignment in Manma course in the Open University.
 
 In order to use this code you need to have the following:
 - python 3.10
-    - numpy
-    - pytest
-    - typing
+- numpy
+- pytest
+- typing
 
 
 ## How to use UI mode
