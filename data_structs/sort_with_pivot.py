@@ -14,8 +14,8 @@ class PivotSort:
         for i in range(p, r):
             if a[i] <= pivot:
                 a[i], a[ptr] = a[ptr], a[i]
-                comp_counter += 1
                 ptr += 1
+            comp_counter += 1
         a[ptr], a[r] = a[r], a[ptr]
         return ptr, comp_counter
 
