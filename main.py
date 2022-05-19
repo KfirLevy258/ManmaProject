@@ -1,12 +1,20 @@
+import numpy as np
+from typing import Tuple
+
 from data_structs.heap import Heap
 from user_inputs import UserInputs
 from data_structs.sort_with_pivot import PivotSort
 
-def main():
+
+def get_user_input() -> Tuple[int, int, np.array]:
     user_input_interface = UserInputs()
     n = user_input_interface.get_user_n_length()
     k = user_input_interface.get_user_k_value(n)
     n_array = user_input_interface.fill_array_with_n_numbers(n)
+    return n, k, n_array
+
+def main(run_user_input: bool = True, args: Tuple[int, int, np.array] = None) -> None:
+    n, k, n_array = get_user_input() if run_user_input else args
     print(n_array)
 
     heap_handler = Heap()
