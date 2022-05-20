@@ -20,33 +20,39 @@ def get_user_input() -> Tuple[int, int, np.array]:
 
 
 def first_algo(k: int, heap_array: np.array) -> Tuple[np.array, int]:
+    """
+    This function is performing the first algorithm
+    :param k: the selected k
+    :param heap_array: the array of numbers
+    :return: the k smallest arrays and the comparisons counter
+    """
     heap_handler = Heap()
-    algo_a_comp_counter = heap_handler.build_min_heap(heap_array)
+    heap_handler.build_min_heap(heap_array)
     k_smallest_array = np.empty(k, dtype=int)
     for i in range(k):
-        heap_array, smallest_number, heap_extract_min_iteration_counter = heap_handler.heap_extract_min(heap_array)
-        algo_a_comp_counter += heap_extract_min_iteration_counter
+        heap_array, smallest_number = heap_handler.heap_extract_min(heap_array)
         k_smallest_array[i] = smallest_number
-    return k_smallest_array, algo_a_comp_counter
+    return k_smallest_array, heap_handler.comp_counter
 
 
 def second_algo(k: int, pivot_array: np.array) -> Tuple[np.array, int]:
+    """
+    This function is performing the second algorithm
+    :param k: the selected k
+    :param pivot_array: the array of numbers
+    :return: the k smallest arrays and the comparisons counter
+    """
     pivot_handler = PivotSort()
-    the_k_smallest, randomize_select_counter = pivot_handler.randomized_select(pivot_array, 0, len(pivot_array) - 1, k, 0)
-    algo_b_comp_counter = pivot_handler.quicksort(pivot_array, 0, k - 1, randomize_select_counter)
-    return pivot_array[0:k], algo_b_comp_counter
+    pivot_handler.randomized_select(pivot_array, 0, len(pivot_array) - 1, k, 0)
+    pivot_handler.quicksort(pivot_array, 0, k - 1)
+    return pivot_array[0:k], pivot_handler.comp_counter
 
 
-def main(run_user_input: bool = True, args: Tuple[int, int, np.array] = None) -> Union[None, Tuple[np.array, np.array]]:
+def main() -> None:
     """
     This is the main func of this project.
-    IMPORTANT - This func can be call either way by the user (which means we will ask the user to insert some data) or
-    in cli mode for debug use.
-    :param run_user_input: rather to run as "ui" or as "cli". default True, so we will use user input
-    :param args: if we want to run as cli, sends the args for the func
-    :return: if run in cli mode, the arrays of the k the smallest objects, from each algorithm's
     """
-    n, k, n_array = get_user_input() if run_user_input else args
+    n, k, n_array = get_user_input()
     # print(n_array)
     heap_array, pivot_array = n_array, n_array
 
@@ -61,9 +67,6 @@ def main(run_user_input: bool = True, args: Tuple[int, int, np.array] = None) ->
     print(f"The k smallest elements are: {k_smallest_array_pivot}")
     print(f"The numbers of comparisons for this sort were: {algo_b_comp_counter}")
     padding()
-
-    if not run_user_input:
-        return k_smallest_array_heap, k_smallest_array_pivot
 
 
 if __name__ == '__main__':
